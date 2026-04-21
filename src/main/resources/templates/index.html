@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Portal</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f9f9f9; }
+        h1 { color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { margin-bottom: 20px; padding: 20px; border: 1px solid #ccc; background: #fafafa; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { padding: 10px 15px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>User Management</h1>
+        
+        <form method="post" action="/users">
+            <h3>Add New User</h3>
+            <div class="form-group">
+                <label>ID:</label>
+                <input type="number" name="id" required>
+            </div>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" name="name" required>
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" required>
+            </div>
+            <button type="submit">Save User</button>
+        </form>
+        
+        <h2>Existing Users</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${users.empty}">
+                    <td colspan="3" style="text-align:center;">No users found in database.</td>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.id}">1</td>
+                    <td th:text="${user.name}">John Doe</td>
+                    <td th:text="${user.email}">john@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
